@@ -45,7 +45,7 @@ export default function LandingPage() {
         </div>
 
         <div className="scroll-action">
-          <Link to="/readme-maker" className="scroll-btn">Start Building →</Link>
+          <Link to="/readme-maker" className="scroll-btn">Try Editor →</Link>
         </div>
       </div>
 
