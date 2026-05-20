@@ -12,6 +12,10 @@ import { useState } from 'react';
 
 export default function ReadmeMaker() {
   const toast = useToast();
+  
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isPreviewOpen, setIsPreviewOpen] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const {
     formData, updateField,
@@ -72,6 +76,15 @@ export default function ReadmeMaker() {
             <span className={`autosave-status${autoSaved ? ' visible' : ''}`}>✓ Auto-saved</span>
           </div>
           <div className="header-right">
+            <button className="hbtn" onClick={() => setIsSidebarOpen(!isSidebarOpen)} title="Toggle Sidebar">
+              {isSidebarOpen ? '◀ Sidebar' : '▶ Sidebar'}
+            </button>
+            <button className="hbtn" onClick={() => setIsPreviewOpen(!isPreviewOpen)} title="Toggle Preview">
+              {isPreviewOpen ? 'Preview ▶' : 'Preview ◀'}
+            </button>
+            <button className="hbtn primary" onClick={() => setIsFullscreen(!isFullscreen)}>
+              Focus Mode
+            </button>
             <a href="https://github.com/Mohit-368/ReadmeForge" target="_blank" rel="noreferrer"
               className="hbtn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -85,8 +98,18 @@ export default function ReadmeMaker() {
           </div>
         </header>
 
-        <div className="main" style={{ height: 'calc(100vh - 128px)' }}>
+        <div className={`main ${isFullscreen ? 'fullscreen-mode' : ''}`} style={{ height: 'calc(100vh - 128px)' }}>
+          {isFullscreen && (
+            <button 
+              className="hbtn primary" 
+              style={{ position: 'fixed', top: 20, right: 20, zIndex: 10000 }} 
+              onClick={() => setIsFullscreen(false)}
+            >
+              Exit Focus Mode
+            </button>
+          )}
           <Sidebar
+            isOpen={isSidebarOpen}
             sectionState={sectionState}
             toggleSection={toggleSection}
             selectedTechs={selectedTechs}
@@ -107,6 +130,7 @@ export default function ReadmeMaker() {
             removeScreenshot={removeScreenshot}
           />
           <PreviewPanel
+            isOpen={isPreviewOpen}
             currentMd={currentMd}
             formData={formData}
             sectionState={sectionState}
