@@ -50,7 +50,7 @@ function calculateQuality({ formData, sectionState, selectedTechs, screenshots }
   return { score: Math.min(score, 100), suggestions };
 }
 
-export default function PreviewPanel({ currentMd, formData, sectionState, selectedTechs, screenshots }) {
+export default function PreviewPanel({ currentMd, formData, sectionState, selectedTechs, screenshots, isOpen = true }) {
   const toast = useToast();
   const [tab, setTabState] = useState('rendered');
   const [zoom, setZoom] = useState(() => {
@@ -137,7 +137,7 @@ export default function PreviewPanel({ currentMd, formData, sectionState, select
   const zoomPct = Math.round(zoom * 100) + '%';
 
   return (
-    <aside className="preview">
+    <aside className={`preview ${!isOpen ? 'collapsed' : ''}`}>
       <div className="preview-header">
         <div className="preview-tabs">
           <button

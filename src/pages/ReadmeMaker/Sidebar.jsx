@@ -4,11 +4,12 @@ export default function Sidebar({
   sectionState, toggleSection,
   selectedTechs, toggleTech,
   applyTemplate, activeTemplate,
+  isOpen = true,
 }) {
   const activeSectionCount = Object.values(sectionState).filter(Boolean).length;
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${!isOpen ? 'collapsed' : ''}`}>
       <div className="sidebar-section">
         <div className="sidebar-label">Templates</div>
         <div className="templates-grid">
